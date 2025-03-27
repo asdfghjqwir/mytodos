@@ -1,5 +1,3 @@
-# docker-compose.yml（内容は下記）
-version: '3.8'
 
 services:
   backend:
