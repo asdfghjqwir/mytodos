@@ -3,21 +3,22 @@
     <h1>Todoリスト</h1>
 
     <!-- 追加フォーム -->
-    <form @submit.prevent="handleAddTodo">
-      <input v-model="newTodo" placeholder="新しいTodoを入力" />
+    <form @submit.prevent="store.addTodo">
+      <input v-model="store.newTodo" placeholder="新しいTodoを入力" />
       <button type="submit">追加</button>
     </form>
 
     <!-- Todo一覧 -->
     <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        <input type="checkbox" v-model="todo.completed" @change="toggleCompleted(todo)" />
+      <li v-for="todo in store.todos" :key="todo.id">
+        <!-- チェックボックスで完了状態を切り替え -->
+        <input type="checkbox" v-model="todo.completed" @change="store.toggleCompleted(todo)" />
 
         <!-- 編集モード -->
-        <div v-if="editId === todo.id">
-          <input v-model="editTitle" />
-          <button @click="handleUpdateTodo(todo.id)">保存</button>
-          <button @click="cancelEdit">キャンセル</button>
+        <div v-if="store.editId === todo.id">
+          <input v-model="store.editTitle" />
+          <button @click="store.updateTodo(todo.id)">保存</button>
+          <button @click="store.cancelEdit">キャンセル</button>
         </div>
 
         <!-- 表示モード -->
@@ -25,8 +26,8 @@
           <span :style="{ textDecoration: todo.completed ? 'line-through' : 'none' }">
             {{ todo.title }}
           </span>
-          <button @click="startEdit(todo); editTitle = todo.title">編集</button>
-          <button @click="deleteTodo(todo.id)">削除</button>
+          <button @click="store.startEdit(todo)">編集</button>
+          <button @click="store.deleteTodo(todo.id)">削除</button>
         </div>
       </li>
     </ul>
@@ -34,33 +35,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useTodoStore } from '@/stores/todo.js'
 
-const {
-  todos,
-  editId,
-  fetchTodos,
-  addTodo,
-  deleteTodo,
-  startEdit,
-  cancelEdit,
-  updateTodo,
-  toggleCompleted
-} = useTodoStore()
+const store = useTodoStore()
 
-// v-modelで使用するローカル状態
-const newTodo = ref('')
-const editTitle = ref('')
-
-// ラッパー関数（Piniaの関数に値を渡すため）
-const handleAddTodo = async () => {
-  await addTodo(newTodo.value)
-  newTodo.value = ''
-}
-
-const handleUpdateTodo = async (id) => {
-  await updateTodo(id, editTitle.value)
-}
-onMounted(fetchTodos)
+onMounted(() => {
+  store.fetchTodos()
+})
 </script>
