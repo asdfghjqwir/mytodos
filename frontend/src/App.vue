@@ -5,11 +5,12 @@ import { RouterView, RouterLink } from 'vue-router'
 <template>
   <div>
     <nav>
-      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/">ホーム</RouterLink>
       <RouterLink to="/signup">新規登録</RouterLink>
+      <RouterLink to="/login">ログイン</RouterLink>
     </nav>
-  </div>
 
   <RouterView />
+</div>
 </template>
 

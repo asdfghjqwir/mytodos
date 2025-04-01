@@ -11,16 +11,6 @@ namespace :api do
   end
 end
 
-
-
-
-
-
-
-
-
-
-
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
