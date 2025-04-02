@@ -21,8 +21,9 @@ const router=useRouter()
 
 
 const handleLogin=async () => {
+ 
   try{
-    const res=await axios.post('http://localhost:3000/api/v1/sessions', {
+    const res=await axios.post('http://localhost:3000/api/v1/login', {
       user: {
         email: email.value,
         password: password.value
