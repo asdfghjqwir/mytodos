@@ -26,7 +26,7 @@ export const useTodoStore = defineStore('todo', {
         const res = await axios.post('http://localhost:3000/todos', {
           todo: {
             title: this.newTodo,
-            completed: !todo.completed
+            completed: false
           }
         })
         this.todos.push(res.data)

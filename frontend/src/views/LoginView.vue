@@ -1,10 +1,32 @@
 <template>
+  <div class="container my-5" style="max-width: 400px;">
+  <h2 class="mb-4">ログイン</h2>
+
   <form @submit.prevent="handleLogin">
-    <input v-model="email" placeholder="メールアドレス" type="email" />
-    <input v-model="password" placeholder="パスワード" type="password" />
-    <button type="submit">ログイン</button>
-    <p v-if="message">{{ message }}</p>
+    <div class="mb-3">
+    <input 
+     v-model="email"
+     placeholder="メールアドレス" 
+     type="email" 
+     class="form-control"
+     />
+    </div>
+    <div class="mb-3">
+    <input
+      v-model="password"
+      placeholder="パスワード"
+      type="password" 
+      class="form-control"
+      />
+  </div>
+
+    <button type="submit" class="btn btn-primary w-100">ログイン</button>
+   
+    <div v-if="message" class="alert alert-danger mt-3" role="alert">
+      {{ message }}
+    </div>
   </form>
+</div>
 </template>
 
 <script setup>
