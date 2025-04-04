@@ -33,7 +33,12 @@ RUN bundle exec bootsnap precompile --gemfile && \
 FROM base
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y \
+      curl \
+      libvips \
+      postgresql-client \
+      build-essential \
+      libpq-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY --from=build /usr/local/bundle /usr/local/bundle

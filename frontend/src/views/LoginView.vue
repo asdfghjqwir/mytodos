@@ -37,7 +37,7 @@ import { useRouter } from 'vue-router'
 
 const email= ref('')
 const password= ref('')
-const message=ref ('')
+const message=ref('')
 const userStore=useUserStore()
 const router=useRouter()
 

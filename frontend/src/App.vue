@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router'
 const userStore=useUserStore()
 const router=useRouter()
 
-const handleLoggout= () => {
+const handleLogout= () => {
   userStore.logout()
   router.push('/login')
 }
@@ -15,11 +15,30 @@ const handleLoggout= () => {
 
 <template>
   <div>
-    <nav>
-      <RouterLink to="/">ホーム</RouterLink>
-      <RouterLink to="/signup" v-if="!userStore.isLoggedIn">新規登録</RouterLink>
-      <RouterLink to="/login" v-if="!userStore.isLoggedIn">ログイン</RouterLink>
-      <button v-if="userStore.isLoggedIn" @click="handleLoggout">ログアウト</button>
+    <nav class="navbar-expand-lg navdar-dark bg-dark px-3 mb-4">
+      <div class="container-fluid">
+      <RouterLink to="/" class="navbar-brand">ホーム</RouterLink>
+      
+      <div class="d-flex gap-2">
+      <RouterLink
+       to="/signup"
+       class="btn btn-outline-light btn-sm"
+        v-if="!userStore.isLoggedIn"
+        >新規登録</RouterLink>
+
+      <RouterLink 
+      to="/login"
+       class="btn btn-outline-light btn-sm"
+       v-if="!userStore.isLoggedIn"
+       >ログイン</RouterLink>
+
+      <button
+       v-if="userStore.isLogedIn"
+        @click="handleLogout"
+        class="btn btn-outline-warning btn-sm"
+        >ログアウト</button>
+      </div>
+    </div>
     </nav>
 
   <RouterView />

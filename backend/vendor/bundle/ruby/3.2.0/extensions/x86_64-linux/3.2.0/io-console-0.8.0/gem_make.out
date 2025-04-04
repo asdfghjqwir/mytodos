@@ -1,41 +1,31 @@
 current directory: /app/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.0/ext/io/console
 /usr/local/bin/ruby extconf.rb
-checking for rb_syserr_fail_str(0, Qnil)... *** extconf.rb failed ***
-Could not create Makefile due to some reason, probably lack of necessary
-libraries and/or headers.  Check the mkmf.log file for more details.  You may
-need configuration options.
+checking for rb_syserr_fail_str(0, Qnil)... yes
+checking for rb_interned_str_cstr()... yes
+checking for rb_io_path()... no
+checking for rb_io_descriptor()... yes
+checking for rb_io_get_write_io()... yes
+checking for rb_io_closed_p()... no
+checking for rb_io_open_descriptor()... no
+checking for rb_ractor_local_storage_value_newkey()... yes
+checking for termios.h... yes
+checking for cfmakeraw() in termios.h... yes
+checking for sys/ioctl.h... yes
+checking for HAVE_RUBY_FIBER_SCHEDULER_H... yes
+checking for ttyname_r()... yes
+creating Makefile
 
-Provided configuration options:
-	--with-opt-dir
-	--without-opt-dir
-	--with-opt-include
-	--without-opt-include=${opt-dir}/include
-	--with-opt-lib
-	--without-opt-lib=${opt-dir}/lib
-	--with-make-prog
-	--without-make-prog
-	--srcdir=.
-	--curdir
-	--ruby=/usr/local/bin/$(RUBY_BASE_NAME)
-/usr/local/lib/ruby/3.2.0/mkmf.rb:490:in `try_do': The compiler failed to generate an executable file. (RuntimeError)
-You have to install development tools first.
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250404-1-bbe3rk sitelibdir\=./.gem.20250404-1-bbe3rk clean
 
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:583:in `try_link0'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:601:in `try_link'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:819:in `try_func'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:1116:in `block in have_func'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:989:in `block in checking_for'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:354:in `block (2 levels) in postpone'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:324:in `open'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:354:in `block in postpone'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:324:in `open'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:350:in `postpone'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:988:in `checking_for'
-	from /usr/local/lib/ruby/3.2.0/mkmf.rb:1115:in `have_func'
-	from extconf.rb:8:in `<main>'
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250404-1-bbe3rk sitelibdir\=./.gem.20250404-1-bbe3rk
+compiling console.c
+linking shared-object io/console.so
 
-To see why this extension failed to compile, please check the mkmf.log which can be found here:
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250404-1-bbe3rk sitelibdir\=./.gem.20250404-1-bbe3rk install
+/usr/bin/install -c -m 0755 console.so ./.gem.20250404-1-bbe3rk/io
 
-  /app/vendor/bundle/ruby/3.2.0/extensions/x86_64-linux/3.2.0/io-console-0.8.0/mkmf.log
-
-extconf failed, exit code 1
+current directory: /app/vendor/bundle/ruby/3.2.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250404-1-bbe3rk sitelibdir\=./.gem.20250404-1-bbe3rk clean
