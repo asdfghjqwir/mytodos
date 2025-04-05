@@ -1,3 +1,5 @@
+module Api
+  module V1
 class TodosController < ApplicationController
   before_action :set_todo, only: %i[ show update destroy ]
   before_action :authenticate_user!
@@ -49,4 +51,6 @@ class TodosController < ApplicationController
     def todo_params
       params.require(:todo).permit(:title, :completed)
     end
+end
+end
 end

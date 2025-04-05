@@ -2,8 +2,8 @@
 
 one:
   title: MyString
-  completed: false
+  done: false
 
 two:
   title: MyString
-  completed: false
+  done: false

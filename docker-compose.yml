@@ -11,6 +11,9 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    env_file:
+      - ./backend/.env
+
     environment:
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres

@@ -1,7 +1,0 @@
-class AddJwtToUsers < ActiveRecord::Migration[7.1]
-  def change
-    add_column :users, :jwt, :string
-    add_column :users, :jti, :string
-    add_index :users, :jti
-  end
-end
