@@ -11,6 +11,11 @@ class User < ApplicationRecord
          jwt_revocation_strategy: Devise::JWT::RevocationStrategies::Null
 
 
+
+
+  has_many :todos, dependent: :destroy
+
+
 before_create :generate_jti
 
 private

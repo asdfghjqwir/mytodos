@@ -1,7 +1,4 @@
-class ApplicationController < ActionController::API
-
-  include Devise::Controllers::Helpers
+class ApplicationController < ActionController::API 
 
   before_action :authenticate_user!
-
 end

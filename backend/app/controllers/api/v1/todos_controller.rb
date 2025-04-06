@@ -1,10 +1,9 @@
 module Api
   module V1
 class TodosController < ApplicationController
+
   before_action :set_todo, only: %i[ show update destroy ]
-  before_action :authenticate_user!
-
-
+ 
   # GET /todos
   def index
     @todos = current_user.todos.order(created_at: :desc)
