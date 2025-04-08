@@ -1,12 +1,13 @@
 module Api
   module V1
-class TodosController < ApplicationController
+   class TodosController < ApplicationController
+    before_action :authenticate_api_v1_user!
+    before_action :set_todo, only: %i[ show update destroy ]
 
-  before_action :set_todo, only: %i[ show update destroy ]
- 
+
   # GET /todos
   def index
-    @todos = current_user.todos.order(created_at: :desc)
+    @todos = current_api_v1_user.todos.order(created_at: :desc)
     render json: @todos
   end
 
@@ -17,8 +18,7 @@ class TodosController < ApplicationController
 
   # POST /todos
   def create
-    @todo = current_user.todos.new(todo_params)
-
+    @todo = current_api_v1_user.todos.new(todo_params)
     if @todo.save
       render json: @todo, status: :created
     else
@@ -43,7 +43,7 @@ class TodosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_todo
-      @todo = current_user.todos.find(params[:id])
+      @todo = current_api_v1_user.todos.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

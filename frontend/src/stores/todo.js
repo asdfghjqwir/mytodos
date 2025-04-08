@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useUserStore } from './user' 
 
 export const useTodoStore = defineStore('todo', {
   state: () => ({
@@ -12,7 +13,12 @@ export const useTodoStore = defineStore('todo', {
   actions: {
     async fetchTodos() {
       try {
-        const res = await axios.get('http://localhost:3000/todos')
+        const userStore = useUserStore()
+        const res = await axios.get('http://localhost:3000/api/v1/todos', {
+          headers: {
+            Authorization: `Bearer ${userStore.token}`
+          }
+        })
         this.todos = res.data
       } catch (error) {
         console.error('GETエラー:', error)
@@ -23,10 +29,15 @@ export const useTodoStore = defineStore('todo', {
       if (!this.newTodo.trim()) return
 
       try {
-        const res = await axios.post('http://localhost:3000/todos', {
+        const userStore = useUserStore()
+        const res = await axios.post('http://localhost:3000/api/v1/todos', {
           todo: {
             title: this.newTodo,
             completed: false
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${userStore.token}`
           }
         })
         this.todos.push(res.data)
@@ -38,7 +49,12 @@ export const useTodoStore = defineStore('todo', {
 
     async deleteTodo(id) {
       try {
-        await axios.delete(`http://localhost:3000/todos/${id}`)
+        const userStore = useUserStore()
+        await axios.delete(`http://localhost:3000/api/v1/todos/${id}`, {
+          headers: {
+            Authorization: `Bearer ${userStore.token}`
+          }
+        })
         this.todos = this.todos.filter(todo => todo.id !== id)
       } catch (error) {
         console.error(`DELETEエラー:`, error)
@@ -57,10 +73,15 @@ export const useTodoStore = defineStore('todo', {
 
     async updateTodo(id) {
       try {
-        const res = await axios.patch(`http://localhost:3000/todos/${id}`, {
+        const userStore = useUserStore()
+        const res = await axios.patch(`http://localhost:3000/api/v1/todos/${id}`, {
           todo: {
             title: this.editTitle,
             completed: false
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${userStore.token}`
           }
         })
         const index = this.todos.findIndex(todo => todo.id === id)
@@ -76,14 +97,19 @@ export const useTodoStore = defineStore('todo', {
     async toggleCompleted(todo) {
       try {
         if (!todo.title || !todo.title.trim()) {
-          console.warn("タイトルがからのためPATCHしません")
+          console.warn("タイトルが空のためPATCHしません")
           return
         }
 
-        const res = await axios.patch(`http://localhost:3000/todos/${todo.id}`, {
+        const userStore = useUserStore()
+        const res = await axios.patch(`http://localhost:3000/api/v1/todos/${todo.id}`, {
           todo: {
             title: todo.title,
             completed: todo.completed
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${userStore.token}`
           }
         })
         console.log(`完了状態更新成功:`, res.data)

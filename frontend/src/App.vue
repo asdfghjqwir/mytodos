@@ -15,7 +15,7 @@ const handleLogout= () => {
 
 <template>
   <div>
-    <nav class="navbar-expand-lg navdar-dark bg-dark px-3 mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 mb-4">
       <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand">ホーム</RouterLink>
       
@@ -33,7 +33,7 @@ const handleLogout= () => {
        >ログイン</RouterLink>
 
       <button
-       v-if="userStore.isLogedIn"
+       v-if="userStore.isLoggedIn"
         @click="handleLogout"
         class="btn btn-outline-warning btn-sm"
         >ログアウト</button>

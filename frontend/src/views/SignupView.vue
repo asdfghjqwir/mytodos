@@ -57,7 +57,7 @@ const handleSignup = async () => {
         password_confirmation: passwordConfirmation.value
       }
     })
-    message.value = res.data.message || '登録が完了しました！'
+    message.value = res.data.status?.message || '登録が完了しました！'
     router.push('/login')
   } catch (error) {
     if (error.response?.data?.errors) {
