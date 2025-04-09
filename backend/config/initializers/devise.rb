@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: true！
 
  require 'devise/jwt'
 
@@ -322,5 +322,7 @@ config.jwt do |jwt|
   ]
   jwt.revocation_requests = []
   jwt.expiration_time = 1.day.to_i
+  jwt.request_formats = { user: [:json]}
+  jwt.aud_header = nil
 end
 end

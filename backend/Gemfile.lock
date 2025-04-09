@@ -239,7 +239,7 @@ DEPENDENCIES
   bootsnap
   debug
   devise
-  devise-jwt
+  devise-jwt (~> 0.12.1)
   dotenv-rails
   pg (~> 1.1)
   puma (>= 5.0)

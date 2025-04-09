@@ -56,7 +56,7 @@ const handleLogin=async () => {
     message.value='ログイン成功!'
     router.push('/')
   }catch(error){
-    message.value=error.response?.data?.errors?.join(',') || 'ログインに失敗しました'
+    message.value = error.response?.data?.status?.message || 'ログインに失敗しました'
   }
 }
 
