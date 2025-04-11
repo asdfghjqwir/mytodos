@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Set production environment
 ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
+    BUNDLE_DEPLOYMENT="0" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
@@ -30,7 +30,6 @@ RUN apt-get update -qq && \
 # ✅ backend/Gemfile, Gemfile.lock を最初にコピー
 COPY backend/Gemfile backend/Gemfile.lock ./
 
-# ✅ プラットフォーム追加してから bundle install
 RUN bundle lock --add-platform x86_64-linux && \
     bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
