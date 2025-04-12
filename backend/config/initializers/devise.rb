@@ -317,7 +317,7 @@ config.jwt do |jwt|
     ['POST', %r{^/api/v1/login$}],
     ['POST', %r{^/api/v1/users$}]
   ]
-  jwt.revocation_strategy = Devise::JWT::RevocationStrategies::Null
+  jwt.expiration_time = 1.hour.to_i
 end
 end
 
