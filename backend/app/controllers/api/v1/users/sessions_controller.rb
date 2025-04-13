@@ -6,7 +6,7 @@ class Api::V1::Users::SessionsController < Devise::SessionsController
   def respond_with(resource, _opts = {})
     render json: {
       message: 'ログイン成功',
-      user: current_user,
+      user: resource,
       token: request.env['warden-jwt_auth.token']
     }, status: :ok
   end
