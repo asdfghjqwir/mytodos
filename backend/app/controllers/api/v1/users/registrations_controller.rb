@@ -1,37 +1,30 @@
 class Api::V1::Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
-  before_action :fix_nested_user_params, only: [:create]
+ 
+ 
+  def create
+    user = User.new(sign_up_params)
 
-  private
-
-  def fix_nested_user_params
-    if params[:registration] && params[:registration][:user]
-      params[:user] = params[:registration][:user]
+    if user.save
+      token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
+ 
+      render json: {
+        message: 'ユーザー登録成功',
+        user: user,
+        token: token
+      }, status: :ok
+    else
+      Rails.logger.error "❌ ユーザー登録エラー: #{user.errors.full_messages.join(', ')}"
+      render json: {
+        message: 'ユーザー登録に失敗しました',
+        errors: user.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
+  private
 
-
-  def respond_with(resource, _opts = {})
-  if resource.persisted?
-    render json: {
-      message: 'ユーザー登録成功',
-      user: resource,
-      token: request.env['warden-jwt_auth.token']
-    }, status: :ok
-  else
-     Rails.logger.error "❌ ユーザー登録エラー: #{resource.errors.full_messages.join(', ')}"
-    
-    render json: {
-      message: 'ユーザー登録に失敗しました',
-      errors: resource.errors.full_messages
-    }, status: :unprocessable_entity
+  def sign_up_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
-
-
-  def respond_to_on_destroy
-    head :no_content
-  end
-end
-

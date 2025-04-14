@@ -18,6 +18,9 @@ app.use(router)
 app.mount('#app')
 
 const token=localStorage.getItem('token')
+axios.defaults.headers.common['Content-Type'] = 'application/json'
+
+
 if (token) {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 

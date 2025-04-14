@@ -52,7 +52,7 @@ const handleLogin=async () => {
       }
     })
 
-   userStore.setToken(res.data.data.token)
+   userStore.setToken(res.data.token)
     message.value='ログイン成功!'
     router.push('/')
   }catch(error){
