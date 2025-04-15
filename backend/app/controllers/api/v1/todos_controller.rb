@@ -2,6 +2,8 @@ class Api::V1::TodosController < ApplicationController
   before_action :authenticate_api_v1_user!
   before_action :set_todo, only: [:update, :destroy]
 
+  respond_to :json 
+
   def index
     todos = current_api_v1_user.todos.order(created_at: :desc)
     render json: todos

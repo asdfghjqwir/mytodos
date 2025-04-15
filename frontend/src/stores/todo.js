@@ -16,7 +16,8 @@ export const useTodoStore = defineStore('todo', {
         const userStore = useUserStore()
         const res = await axios.get('http://localhost:3000/api/v1/todos', {
           headers: {
-            Authorization: `Bearer ${userStore.token}`
+            Authorization: `Bearer ${userStore.token}`,
+            Accept: 'application/json'
           }
         })
         this.todos = res.data

@@ -2,7 +2,8 @@ class ApplicationController < ActionController::API
   include ActionController::MimeResponds
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  before_action :force_json_format
+
+  before_action :force_json_format, unless: :devise_controller?
 
   respond_to :json
 

@@ -317,6 +317,7 @@ config.jwt do |jwt|
     ['POST', %r{^/api/v1/login$}],
     ['POST', %r{^/api/v1/sign_up$}]
   ]
+  jwt.revocation_requests = []
   jwt.expiration_time = 1.hour.to_i
 end
 end
