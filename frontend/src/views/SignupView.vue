@@ -50,7 +50,7 @@ const message = ref('')
 
 const handleSignup = async () => {
   try {
-    const res = await axios.post('http://localhost:3000/api/v1/sign_up', {
+    const res = await axios.post('http://localhost:3000/api/v1/signup', {
       user: {
         email: email.value,
         password: password.value,

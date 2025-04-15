@@ -1,16 +1,14 @@
 class Api::V1::TodosController < ApplicationController
-  before_action :authenticate_api_v1_user!
+  before_action :authorize_request
   before_action :set_todo, only: [:update, :destroy]
 
-  respond_to :json 
-
   def index
-    todos = current_api_v1_user.todos.order(created_at: :desc)
+    todos = @current_user.todos.order(created_at: :desc)
     render json: todos
   end
 
   def create
-    todo = current_api_v1_user.todos.build(todo_params)
+    todo = @current_user.todos.build(todo_params)
     if todo.save
       render json: todo, status: :created
     else
@@ -34,7 +32,7 @@ class Api::V1::TodosController < ApplicationController
   private
 
   def set_todo
-    @todo = current_api_v1_user.todos.find(params[:id])
+    @todo = @current_user.todos.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'Todo not found' }, status: :not_found
   end

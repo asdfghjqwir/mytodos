@@ -1,21 +1,16 @@
 class ApplicationController < ActionController::API
-  include ActionController::MimeResponds
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authorize_request
 
-
-  before_action :force_json_format, unless: :devise_controller?
-
-  respond_to :json
-
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation])
-  end
+  attr_reader :current_user
 
   private
 
-  def force_json_format
-    request.format = :json
+  def authorize_request
+    header = request.headers['Authorization']
+    token = header.split(' ').last if header.present?
+    decoded = JsonWebToken.decode(token)
+    @current_user = User.find(decoded[:user_id]) if decoded
+  rescue ActiveRecord::RecordNotFound, JWT::DecodeError
+    render json: { errors: ['Unauthorized'] }, status: :unauthorized
   end
 end

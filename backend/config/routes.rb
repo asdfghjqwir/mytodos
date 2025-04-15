@@ -5,17 +5,8 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   namespace :api do
     namespace :v1 do
-      devise_for :users,
-                 path: '',
-                 path_names: {
-                   sign_in: 'login', 
-                   sign_out: 'logout',
-                   registration: 'sign_up'
-                 },
-                 controllers: {
-                   sessions: 'api/v1/users/sessions',
-                   registrations: 'api/v1/users/registrations'
-                 }
+       post 'signup', to: 'auth#signup'
+       post 'login', to: 'auth#login'
        resources :todos, only: [:index, :create, :update, :destroy]
     end
   end
