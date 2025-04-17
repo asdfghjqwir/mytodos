@@ -1,6 +1,7 @@
 <template>
-  <div class="container my-5" style="max-width: 400px;">
-    <h2 class="mb-4">新規登録</h2>
+     <div class="container-fluid px-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="bg-light p-5 shadow rounded w-100" style="max-width: 720px;">
+    <h2 class="mb-4 text-start">新規登録</h2>
 
     <form @submit.prevent="handleSignup">
       <div class="mb-3">
@@ -8,7 +9,7 @@
        v-model="email"
         type="email" 
         placeholder="メールアドレス"
-        class="form-control"
+        class="form-control form-control-lg"
          />
       </div>
 
@@ -17,7 +18,7 @@
        v-model="password"
         type="password"
         placeholder="パスワード" 
-        class="form-control"
+        class="form-control form-control-lg"
          />
       </div>
 
@@ -26,27 +27,28 @@
         v-model="passwordConfirmation"
         type="password"
         placeholder="パスワード確認" 
-        class="form-control"
+        class="form-control form-control-lg"
           />
       </div>
 
-      <button type="submit" class="btn btn-success w-100">登録</button>
-    <div v-if="message" class="alert alert-danger mt-3" role="alert">
-      {{ message }}
-    </div>
+      <button type="submit" class="btn btn-success btn-lg w-100">登録</button>
+    <p v-if="message" class="mt-3 text-danger text-center">{{ message }} </p>
     </form>
   </div>
+</div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
 import router from '@/router'
+import { useUserStore } from '@/stores/user'
 
 const email = ref('')
 const password = ref('')
 const passwordConfirmation = ref('')
 const message = ref('')
+const userStore = useUserStore()
 
 const handleSignup = async () => {
   try {
@@ -57,13 +59,15 @@ const handleSignup = async () => {
         password_confirmation: passwordConfirmation.value
       }
     })
-    message.value = res.data.status?.message || '登録が完了しました！'
-    router.push('/login')
+
+    userStore.setToken(res.data.token)
+    message.value = ''
+    router.push('/')
   } catch (error) {
     if (error.response?.data?.errors) {
-      message.value = error.response.data.errors.join(',')
+      message.value = error.response.data.errors.join(', ')
     } else {
-      message.value = 'エラーが発生しました'
+      message.value = '登録に失敗しました'
     }
   }
 }

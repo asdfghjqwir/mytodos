@@ -16,30 +16,43 @@ const handleLogout= () => {
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3 mb-4">
-      <div class="container-fluid">
-      <RouterLink to="/" class="navbar-brand">ホーム</RouterLink>
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+      <RouterLink 
+      to="/" 
+      class="navbar-brand"
+      :class="$route.path === '/' ? 'text-light' : 'text-secondary'"
+      >
+      ホーム
+    </RouterLink>
+
       
-      <div class="d-flex gap-2">
+    <div class="d-flex gap-2">
       <RouterLink
        to="/signup"
        class="btn btn-outline-light btn-sm"
         v-if="!userStore.isLoggedIn"
-        >新規登録</RouterLink>
+        >
+        新規登録
+      </RouterLink>
 
       <RouterLink 
       to="/login"
        class="btn btn-outline-light btn-sm"
        v-if="!userStore.isLoggedIn"
-       >ログイン</RouterLink>
+       >
+       ログイン
+      </RouterLink>
 
       <button
        v-if="userStore.isLoggedIn"
         @click="handleLogout"
         class="btn btn-outline-warning btn-sm"
-        >ログアウト</button>
+        >
+        ログアウト
+      </button>
       </div>
     </div>
-    </nav>
+</nav>
 
   <RouterView />
 </div>

@@ -1,14 +1,16 @@
 <template>
-  <div class="container my-5" style="max-width: 400px;">
-  <h2 class="mb-4">ログイン</h2>
+    <div class="container-fluid px-3 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="bg-light p-5 shadow rounded w-100" style="max-width: 720px;">
+  <h2 class="mb-4  text-start">ログイン</h2>
 
+  
   <form @submit.prevent="handleLogin">
     <div class="mb-3">
     <input 
      v-model="email"
      placeholder="メールアドレス" 
      type="email" 
-     class="form-control"
+     class="form-control form-control-lg"
      />
     </div>
     <div class="mb-3">
@@ -16,16 +18,15 @@
       v-model="password"
       placeholder="パスワード"
       type="password" 
-      class="form-control"
+      class="form-control form-control-lg"
       />
   </div>
 
     <button type="submit" class="btn btn-primary w-100">ログイン</button>
    
-    <div v-if="message" class="alert alert-danger mt-3" role="alert">
-      {{ message }}
-    </div>
+    <p v-if="message" class="mt-3 text-danger text-center">{{ message }} </p>
   </form>
+</div>
 </div>
 </template>
 
@@ -53,7 +54,7 @@ const handleLogin=async () => {
     })
 
    userStore.setToken(res.data.token)
-    message.value='ログイン成功!'
+   message.value = ''  
     router.push('/')
   }catch(error){
     message.value = error.response?.data?.status?.message || 'ログインに失敗しました'
