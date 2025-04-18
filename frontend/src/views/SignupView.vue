@@ -3,7 +3,7 @@
       <div class="bg-light p-5 shadow rounded w-100" style="max-width: 720px;">
     <h2 class="mb-4 text-start">新規登録</h2>
 
-    <form @submit.prevent="handleSignup">
+    <form @submit.prevent="handleSignupSubmit">
       <div class="mb-3">
       <input
        v-model="email"
@@ -50,9 +50,23 @@ const passwordConfirmation = ref('')
 const message = ref('')
 const userStore = useUserStore()
 
+const handleSignupSubmit = () => {
+  if (!email.value.trim() || !password.value.trim() || !passwordConfirmation.value.trim()) {
+    alert('すべての項目を入力してください')
+    return
+  }
+
+  if (password.value !== passwordConfirmation.value) {
+    alert('パスワードと確認用パスワードが一致しません')
+    return
+  }
+
+  handleSignup()
+}
+
 const handleSignup = async () => {
   try {
-    const res = await axios.post('http://localhost:3000/api/v1/signup', {
+    const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/signup`, {
       user: {
         email: email.value,
         password: password.value,

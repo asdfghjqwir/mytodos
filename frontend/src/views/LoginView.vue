@@ -4,7 +4,7 @@
   <h2 class="mb-4  text-start">ログイン</h2>
 
   
-  <form @submit.prevent="handleLogin">
+  <form @submit.prevent="handleLoginSubmit">
     <div class="mb-3">
     <input 
      v-model="email"
@@ -42,11 +42,17 @@ const message=ref('')
 const userStore=useUserStore()
 const router=useRouter()
 
+const handleLoginSubmit = () => {
+  if (!email.value.trim() || !password.value.trim()) {
+    alert('メールアドレスとパスワードを入力してください')
+    return
+  }
+  handleLogin()
+}
 
 const handleLogin=async () => {
- 
   try{
-    const res=await axios.post('http://localhost:3000/api/v1/login', {
+    const res=await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/login`, {
       user: {
         email: email.value,
         password: password.value

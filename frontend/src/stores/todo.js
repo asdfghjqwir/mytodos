@@ -14,7 +14,7 @@ export const useTodoStore = defineStore('todo', {
     async fetchTodos() {
       try {
         const userStore = useUserStore()
-        const res = await axios.get('http://localhost:3000/api/v1/todos', {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/todos`, {
           headers: {
             Authorization: `Bearer ${userStore.token}`,
             Accept: 'application/json'
@@ -27,11 +27,14 @@ export const useTodoStore = defineStore('todo', {
     },
 
     async addTodo() {
-      if (!this.newTodo.trim()) return
+      if (!this.newTodo.trim()) {
+        alert('タイトルを入力してください')
+        return
+      }
 
       try {
         const userStore = useUserStore()
-        const res = await axios.post('http://localhost:3000/api/v1/todos', {
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/todos`, {
           todo: {
             title: this.newTodo,
             completed: false
@@ -51,7 +54,7 @@ export const useTodoStore = defineStore('todo', {
     async deleteTodo(id) {
       try {
         const userStore = useUserStore()
-        await axios.delete(`http://localhost:3000/api/v1/todos/${id}`, {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/todos/${id}`, {
           headers: {
             Authorization: `Bearer ${userStore.token}`
           }
@@ -73,9 +76,14 @@ export const useTodoStore = defineStore('todo', {
     },
 
     async updateTodo(id) {
+      if (!this.editTitle.trim()) {
+        alert('タイトルを入力してください')
+        return
+      }
+
       try {
         const userStore = useUserStore()
-        const res = await axios.patch(`http://localhost:3000/api/v1/todos/${id}`, {
+        const res = await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/todos/${id}`, {
           todo: {
             title: this.editTitle,
             completed: false
@@ -103,7 +111,7 @@ export const useTodoStore = defineStore('todo', {
         }
 
         const userStore = useUserStore()
-        const res = await axios.patch(`http://localhost:3000/api/v1/todos/${todo.id}`, {
+        const res = await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/todos/${todo.id}`, {
           todo: {
             title: todo.title,
             completed: todo.completed

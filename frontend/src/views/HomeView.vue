@@ -4,7 +4,7 @@
     <h1 class="mb-4 text-start">Todoリスト</h1>
 
     <!-- 追加フォーム -->
-    <form @submit.prevent="store.addTodo" class="row g-2 align-items-center mb-4">
+    <form @submit.prevent="handleSubmit" class="row g-2 align-items-center mb-4">
       <div class="col-12 col-md-10">
       <input
        v-model="store.newTodo" 
@@ -73,4 +73,12 @@ const store = useTodoStore()
 onMounted(() => {
   store.fetchTodos()
 })
+
+const handleSubmit = () => {
+  if (!store.newTodo.trim()) {
+    alert('Todoを入力してください')
+    return
+  }
+  store.addTodo()
+}
 </script>
