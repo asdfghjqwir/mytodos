@@ -20,6 +20,7 @@ app.mount('#app')
 
 const token=localStorage.getItem('token')
 axios.defaults.headers.common['Content-Type'] = 'application/json'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 
 if (token) {
